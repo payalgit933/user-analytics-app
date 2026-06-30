@@ -2,77 +2,104 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 function Sessions() {
-
   const [sessions, setSessions] = useState([]);
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-
     axios
-      .get("http://localhost:5000/sessions")
+      .get("https://user-analytics-app-lhpn.onrender.com/sessions")
       .then((response) => {
         setSessions(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
       });
-
   }, []);
 
   const loadSessionEvents = async (sessionId) => {
+    try {
+      const response = await axios.get(
+        `https://user-analytics-app-lhpn.onrender.com/sessions/${sessionId}`
+      );
 
-    const response = await axios.get(
-      `http://localhost:5000/sessions/${sessionId}`
-    );
-
-    setEvents(response.data);
+      setEvents(response.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <div>
-
-      <h2>Sessions</h2>
+      <h2 className="mb-4">📁 Sessions</h2>
 
       {sessions.map((session) => (
-
         <div
           key={session._id}
+          className="card mb-3 shadow-sm"
           style={{
-            border: "1px solid black",
-            padding: "10px",
-            marginBottom: "10px",
-            cursor: "pointer"
+            cursor: "pointer",
+            transition: "0.3s",
           }}
           onClick={() => loadSessionEvents(session._id)}
         >
+          <div className="card-body">
+            <h5 className="card-title">Session ID</h5>
 
-          <p>
-            Session: {session._id}
-          </p>
+            <p
+              className="text-muted"
+              style={{
+                wordBreak: "break-all",
+              }}
+            >
+              {session._id}
+            </p>
 
-          <p>
-            Events: {session.totalEvents}
-          </p>
-
+            <span className="badge bg-primary">
+              {session.totalEvents} Events
+            </span>
+          </div>
         </div>
-
       ))}
 
-      <h2>User Journey</h2>
+      <div className="mt-5">
+        <h2 className="mb-4">🛣️ User Journey</h2>
 
-      {events.map((event) => (
+        {events.length === 0 ? (
+          <div className="alert alert-info">
+            Click a session card to view user journey.
+          </div>
+        ) : (
+          events.map((event) => (
+            <div
+              key={event._id}
+              className="card mb-3 border-start border-4 border-primary shadow-sm"
+            >
+              <div className="card-body">
+                <h5 className="card-title">
+                  {event.eventType === "click"
+                    ? "🖱️ Click Event"
+                    : "👀 Page View"}
+                </h5>
 
-        <div key={event._id}>
+                <p className="mb-1">
+                  <strong>Page:</strong> {event.pageUrl}
+                </p>
 
-          <p>Type: {event.eventType}</p>
+                <p className="mb-1">
+                  <strong>Time:</strong>{" "}
+                  {new Date(event.timestamp).toLocaleString()}
+                </p>
 
-          <p>Page: {event.pageUrl}</p>
-
-          <p>Time: {new Date(event.timestamp).toLocaleString()}</p>
-
-          <hr />
-
-        </div>
-
-      ))}
-
+                {event.x !== undefined && event.y !== undefined && (
+                  <p className="mb-0">
+                    <strong>Position:</strong> ({event.x}, {event.y})
+                  </p>
+                )}
+              </div>
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 }

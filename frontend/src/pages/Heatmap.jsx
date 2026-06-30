@@ -8,7 +8,7 @@ function Heatmap() {
   const loadHeatmap = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/heatmap?pageUrl=${encodeURIComponent(pageUrl)}`
+        `https://user-analytics-app-lhpn.onrender.com/heatmap?pageUrl=${encodeURIComponent(pageUrl)}`
       );
 
       setClicks(response.data);
@@ -18,49 +18,60 @@ function Heatmap() {
   };
 
   return (
-    <div>
+    <div className="mt-5">
+      <h2 className="mb-4">🔥 Click Heatmap</h2>
 
-      <h2>Heatmap</h2>
+      <div className="input-group mb-3">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Enter Page URL"
+          value={pageUrl}
+          onChange={(e) => setPageUrl(e.target.value)}
+        />
 
-      <input
-        type="text"
-        placeholder="Enter Page URL"
-        value={pageUrl}
-        onChange={(e) => setPageUrl(e.target.value)}
-        style={{ width: "500px" }}
-      />
+        <button
+          className="btn btn-primary"
+          onClick={loadHeatmap}
+        >
+          Load Heatmap
+        </button>
+      </div>
 
-      <button onClick={loadHeatmap}>
-        Load Heatmap
-      </button>
+      <div className="alert alert-secondary">
+        Total Clicks: <strong>{clicks.length}</strong>
+      </div>
 
       <div
         style={{
-          width: "800px",
+          width: "100%",
+          maxWidth: "900px",
           height: "500px",
-          border: "2px solid black",
+          border: "2px solid #dee2e6",
+          borderRadius: "12px",
           position: "relative",
-          marginTop: "20px"
+          backgroundColor: "#f8f9fa",
+          overflow: "hidden",
         }}
       >
-
         {clicks.map((click) => (
           <div
             key={click._id}
+            title={`(${click.x}, ${click.y})`}
             style={{
-              width: "14px",
-              height: "14px",
+              width: "16px",
+              height: "16px",
               borderRadius: "50%",
-              backgroundColor: "red",
+              backgroundColor: "#ff4d4f",
+              boxShadow: "0 0 10px red",
               position: "absolute",
               left: click.x,
-              top: click.y
+              top: click.y,
+              transform: "translate(-50%, -50%)",
             }}
           />
         ))}
-
       </div>
-
     </div>
   );
 }

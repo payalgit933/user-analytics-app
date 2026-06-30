@@ -1,19 +1,14 @@
 body {
+  background-color: #f5f7fb;
   font-family: Arial, sans-serif;
-  padding: 20px;
 }
 
-h1 {
-  color: #2563eb;
+.card {
+  border: none;
+  border-radius: 12px;
 }
 
-.session-card {
-  border: 1px solid #ddd;
-  padding: 12px;
-  margin-bottom: 10px;
-  border-radius: 8px;
-}
-
-.session-card:hover {
-  background: #f5f5f5;
+.card:hover {
+  transform: translateY(-2px);
+  transition: 0.2s;
 }
