@@ -95,7 +95,42 @@ function Sessions() {
   </div>
 
       <div className="row">
+        <div className="card shadow-sm border-0 mb-4">
+  <div className="card-body">
+    <h3 className="mb-3">📊 About This Project</h3>
 
+    <p className="text-muted">
+      User Analytics Dashboard is a full-stack analytics platform that
+      tracks user interactions such as page views, clicks, and browsing
+      sessions. It stores user events in MongoDB Atlas through a Node.js
+      & Express backend and visualizes the collected data using a React
+      dashboard.
+    </p>
+
+    <h5>✨ Features</h5>
+
+    <ul>
+      <li>📄 Page View Tracking</li>
+      <li>🖱 Click Tracking</li>
+      <li>📁 Session Management</li>
+      <li>🛣 User Journey Visualization</li>
+      <li>🔥 Click Heatmap</li>
+    </ul>
+
+    <h5>⚙ Tech Stack</h5>
+
+    <p>
+      React • Node.js • Express • MongoDB Atlas • Bootstrap • Axios
+    </p>
+
+    <h5>🔄 Workflow</h5>
+
+    <p className="mb-0">
+      Portfolio Website → Tracker.js → Express API → MongoDB Atlas →
+      React Dashboard
+    </p>
+  </div>
+</div>
         {/* Sessions */}
 
         <div className="col-md-4">
