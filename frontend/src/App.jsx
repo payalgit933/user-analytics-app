@@ -3,52 +3,65 @@ import Heatmap from "./pages/Heatmap";
 
 function App() {
   return (
-    <div className="container mt-4">
+    <div style={{ backgroundColor: "#f4f7fc", minHeight: "100vh" }}>
+      {/* Navbar */}
+      <nav
+        className="navbar navbar-expand-lg shadow"
+        style={{
+          background: "linear-gradient(90deg,#0f172a,#1e3a8a)",
+        }}
+      >
+        <div className="container">
+          <span
+            className="navbar-brand fw-bold text-white"
+            style={{ fontSize: "28px" }}
+          >
+            📊 User Analytics Dashboard
+          </span>
 
-      <div className="text-center mb-5">
-        <h1>📊 User Analytics Dashboard</h1>
-        <p className="text-muted">
-          Session Tracking & Heatmap Visualization
-        </p>
+          <span className="text-white">
+            React • Express • MongoDB
+          </span>
+        </div>
+      </nav>
+
+      <div className="container py-4">
+
+        {/* Welcome */}
+
+        <div className="text-center mb-5">
+          <h2 className="fw-bold">
+            Analytics Overview
+          </h2>
+
+          <p className="text-muted fs-5">
+            Track user sessions, monitor user journeys and visualize click
+            heatmaps.
+          </p>
+        </div>
+
+        {/* Main Dashboard */}
+
+        <Sessions />
+
+        {/* Heatmap */}
+
+        <div className="mt-5">
+          <Heatmap />
+        </div>
+
+        {/* Footer */}
+
+        <footer className="text-center text-muted mt-5 pb-3">
+          <hr />
+
+          <p>
+            Built with ❤️ using React, Express, MongoDB & Bootstrap
+          </p>
+
+        </footer>
+
       </div>
-
-      <div className="row mb-4">
-
-        <div className="col-md-4">
-          <div className="card text-center shadow-sm">
-            <div className="card-body">
-              <h5>Total Sessions</h5>
-              <h2>📁</h2>
-            </div>
-          </div>
-        </div>
-
-        <div className="col-md-4">
-          <div className="card text-center shadow-sm">
-            <div className="card-body">
-              <h5>User Journey</h5>
-              <h2>🛣️</h2>
-            </div>
-          </div>
-        </div>
-
-        <div className="col-md-4">
-          <div className="card text-center shadow-sm">
-            <div className="card-body">
-              <h5>Heatmap</h5>
-              <h2>🔥</h2>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <Sessions />
-
-      <hr className="my-5" />
-
-      <Heatmap />
-
     </div>
   );
 }
