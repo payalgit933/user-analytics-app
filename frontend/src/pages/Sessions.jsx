@@ -58,36 +58,81 @@ function Sessions() {
     <div className="container-fluid mt-3">
 
       {/* ================= ABOUT SECTION ================= */}
-      <div className="card shadow mb-3">
-
+      <div className="card shadow mb-4">
         <div
-          className="card-header bg-dark text-white d-flex justify-content-between"
-          onClick={() => setShowAbout(!showAbout)}
+          className="card-header bg-dark text-white d-flex justify-content-between align-items-center"
           style={{ cursor: "pointer" }}
+          onClick={() => setShowAbout(!showAbout)}
         >
-          <span>ℹ About</span>
+          <h5 className="mb-0">ℹ About This Project</h5>
           <span>{showAbout ? "▲" : "▼"}</span>
         </div>
 
         {showAbout && (
-          <div className="card-body small">
-
+          <div className="card-body">
             <p>
-              Analytics dashboard (Google Analytics / Hotjar style) tracking user behavior.
+              This dashboard demonstrates how modern analytics platforms like
+              Google Analytics, Hotjar, and Microsoft Clarity track user behavior.
             </p>
 
-            <pre className="bg-light p-2 rounded small">
-Portfolio → Tracker → API → MongoDB → Dashboard
+            <hr />
+
+            <h6>Workflow</h6>
+            <pre>
+Portfolio Website → Tracker.js → Express API → MongoDB Atlas → React Dashboard
             </pre>
 
+            <h6>Features</h6>
+            <ul>
+              <li>✔ Session Tracking</li>
+              <li>✔ Page View Tracking</li>
+              <li>✔ Click Tracking</li>
+              <li>✔ User Journey Visualization</li>
+            </ul>
+
+            <h6>Tech Stack</h6>
+            <p>React • Node.js • Express • MongoDB Atlas • Bootstrap • Axios</p>
+
+            <h6>Deployment</h6>
             <p>
-              Tech: React • Node • Express • MongoDB • Axios
+              Frontend: Vercel <br />
+              Backend: Render <br />
+              Database: MongoDB Atlas
             </p>
 
-            <p className="text-muted small">
-              API: {API_BASE}
-            </p>
+            <hr />
 
+            <h6>🔗 Test API</h6>
+            <code>{API_BASE}</code>
+
+            <div className="mt-3 d-flex gap-2 flex-wrap">
+              <a
+                href="https://your-portfolio-link.com"
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-primary"
+              >
+                🌐 Live Portfolio
+              </a>
+
+              <a
+                href="https://github.com/your-repo"
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-dark"
+              >
+                💻 GitHub Repository
+              </a>
+
+              <a
+                href="https://github.com/your-repo#readme"
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-success"
+              >
+                📄 README
+              </a>
+            </div>
           </div>
         )}
       </div>
