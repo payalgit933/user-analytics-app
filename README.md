@@ -32,7 +32,6 @@ https://user-analytics-app-lhpn.onrender.com/
 <p align="center">
 <img src="screenshots/user-journey.png" width="900">
 </p>
-
 ---
 
 ### Heatmap
