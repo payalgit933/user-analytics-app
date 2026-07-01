@@ -107,7 +107,7 @@ Portfolio Website → Tracker.js → Express API → MongoDB Atlas → React Das
 
             <div className="mt-3 d-flex gap-2 flex-wrap">
               <a
-                href="https://your-portfolio-link.com"
+                href="https://payalgit933.github.io/portfolio-main/"
                 target="_blank"
                 rel="noreferrer"
                 className="btn btn-primary"
@@ -116,7 +116,7 @@ Portfolio Website → Tracker.js → Express API → MongoDB Atlas → React Das
               </a>
 
               <a
-                href="https://github.com/your-repo"
+                href="https://github.com/payalgit933/user-analytics-app"
                 target="_blank"
                 rel="noreferrer"
                 className="btn btn-dark"
@@ -125,7 +125,7 @@ Portfolio Website → Tracker.js → Express API → MongoDB Atlas → React Das
               </a>
 
               <a
-                href="https://github.com/your-repo#readme"
+                href="https://github.com/payalgit933/user-analytics-app/blob/main/README.md"
                 target="_blank"
                 rel="noreferrer"
                 className="btn btn-success"
