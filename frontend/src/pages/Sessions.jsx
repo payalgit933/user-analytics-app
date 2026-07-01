@@ -6,6 +6,10 @@ function Sessions() {
   const [events, setEvents] = useState([]);
   const [selectedSession, setSelectedSession] = useState("");
   const [search, setSearch] = useState("");
+  const [showAbout, setShowAbout] = useState(false);
+
+  // 🔗 Central API URL (easy to share for testing)
+  const API_BASE = "https://user-analytics-app-lhpn.onrender.com";
 
   const totalSessions = sessions.length;
 
@@ -28,7 +32,7 @@ function Sessions() {
 
   useEffect(() => {
     axios
-      .get("https://user-analytics-app-lhpn.onrender.com/sessions")
+      .get(`${API_BASE}/sessions`)
       .then((res) => setSessions(res.data))
       .catch((err) => console.error(err));
   }, []);
@@ -36,17 +40,94 @@ function Sessions() {
   const loadSessionEvents = async (sessionId) => {
     setSelectedSession(sessionId);
 
-    const res = await axios.get(
-      `https://user-analytics-app-lhpn.onrender.com/sessions/${sessionId}`
-    );
-
+    const res = await axios.get(`${API_BASE}/sessions/${sessionId}`);
     setEvents(res.data);
   };
 
   return (
     <div className="container-fluid mt-4">
 
-      {/* TOP STATS */}
+      {/* ================= ABOUT SECTION ================= */}
+      <div className="card shadow mb-4">
+        <div
+          className="card-header bg-dark text-white d-flex justify-content-between align-items-center"
+          style={{ cursor: "pointer" }}
+          onClick={() => setShowAbout(!showAbout)}
+        >
+          <h5 className="mb-0">ℹ About This Project</h5>
+          <span>{showAbout ? "▲" : "▼"}</span>
+        </div>
+
+        {showAbout && (
+          <div className="card-body">
+            <p>
+              This dashboard demonstrates how modern analytics platforms like
+              Google Analytics, Hotjar, and Microsoft Clarity track user behavior.
+            </p>
+
+            <hr />
+
+            <h6>Workflow</h6>
+            <pre>
+Portfolio Website → Tracker.js → Express API → MongoDB Atlas → React Dashboard
+            </pre>
+
+            <h6>Features</h6>
+            <ul>
+              <li>✔ Session Tracking</li>
+              <li>✔ Page View Tracking</li>
+              <li>✔ Click Tracking</li>
+              <li>✔ User Journey Visualization</li>
+            </ul>
+
+            <h6>Tech Stack</h6>
+            <p>React • Node.js • Express • MongoDB Atlas • Bootstrap • Axios</p>
+
+            <h6>Deployment</h6>
+            <p>
+              Frontend: Vercel <br />
+              Backend: Render <br />
+              Database: MongoDB Atlas
+            </p>
+
+            <hr />
+
+            <h6>🔗 Test API</h6>
+            <code>{API_BASE}</code>
+
+            <div className="mt-3 d-flex gap-2 flex-wrap">
+              <a
+                href="https://your-portfolio-link.com"
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-primary"
+              >
+                🌐 Live Portfolio
+              </a>
+
+              <a
+                href="https://github.com/your-repo"
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-dark"
+              >
+                💻 GitHub Repository
+              </a>
+
+              <a
+                href="https://github.com/your-repo#readme"
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-success"
+              >
+                📄 README
+              </a>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* ================= TOP STATS ================= */}
       <div className="row mb-4">
 
         <div className="col-md-3">
@@ -87,12 +168,11 @@ function Sessions() {
 
       </div>
 
-      {/* MAIN AREA */}
+      {/* ================= MAIN AREA ================= */}
       <div className="row">
 
         {/* SESSIONS */}
         <div className="col-md-4">
-
           <div className="card shadow" style={{ height: "650px", overflowY: "auto" }}>
 
             <div className="card-header bg-dark text-white">
@@ -101,7 +181,6 @@ function Sessions() {
 
             <div className="card-body">
 
-              {/* SEARCH (ONLY ONCE) */}
               <input
                 className="form-control mb-3"
                 placeholder="Search session..."
@@ -136,7 +215,6 @@ function Sessions() {
 
         {/* USER JOURNEY */}
         <div className="col-md-8">
-
           <div className="card shadow" style={{ height: "650px", overflowY: "auto" }}>
 
             <div className="card-header bg-primary text-white">
@@ -173,7 +251,6 @@ function Sessions() {
 
             </div>
           </div>
-
         </div>
 
       </div>
