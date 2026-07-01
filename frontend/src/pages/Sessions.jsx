@@ -6,9 +6,12 @@ function Sessions() {
   const [events, setEvents] = useState([]);
   const [selectedSession, setSelectedSession] = useState("");
   const [search, setSearch] = useState("");
+  const [showAbout, setShowAbout] = useState(false);
   const [copied, setCopied] = useState(false);
 
   const API_BASE = "https://user-analytics-app-lhpn.onrender.com";
+
+  // 🌐 Portfolio URL
   const PORTFOLIO_URL = "https://payalgit933.github.io/portfolio-main/";
 
   const totalSessions = sessions.length;
@@ -39,26 +42,63 @@ function Sessions() {
 
   const loadSessionEvents = async (sessionId) => {
     setSelectedSession(sessionId);
+
     const res = await axios.get(`${API_BASE}/sessions/${sessionId}`);
     setEvents(res.data);
   };
 
-  const copyUrl = async () => {
+  // 📋 Copy handler
+  const handleCopy = async () => {
     await navigator.clipboard.writeText(PORTFOLIO_URL);
     setCopied(true);
-    setTimeout(() => setCopied(false), 1200);
+    setTimeout(() => setCopied(false), 1500);
   };
 
   return (
     <div className="container-fluid mt-3">
 
-      {/* ================= TOP STATS (COMPACT) ================= */}
-      <div className="row mb-2 text-center">
+      {/* ================= ABOUT SECTION ================= */}
+      <div className="card shadow mb-3">
+
+        <div
+          className="card-header bg-dark text-white d-flex justify-content-between"
+          onClick={() => setShowAbout(!showAbout)}
+          style={{ cursor: "pointer" }}
+        >
+          <span>ℹ About</span>
+          <span>{showAbout ? "▲" : "▼"}</span>
+        </div>
+
+        {showAbout && (
+          <div className="card-body small">
+
+            <p>
+              Analytics dashboard (Google Analytics / Hotjar style) tracking user behavior.
+            </p>
+
+            <pre className="bg-light p-2 rounded small">
+Portfolio → Tracker → API → MongoDB → Dashboard
+            </pre>
+
+            <p>
+              Tech: React • Node • Express • MongoDB • Axios
+            </p>
+
+            <p className="text-muted small">
+              API: {API_BASE}
+            </p>
+
+          </div>
+        )}
+      </div>
+
+      {/* ================= TOP STATS ================= */}
+      <div className="row mb-3 text-center">
 
         <div className="col-md-3">
           <div className="card shadow-sm">
-            <div className="card-body p-1">
-              <h6>{totalSessions}</h6>
+            <div className="card-body p-2">
+              <h5>{totalSessions}</h5>
               <small>Sessions</small>
             </div>
           </div>
@@ -66,8 +106,8 @@ function Sessions() {
 
         <div className="col-md-3">
           <div className="card shadow-sm">
-            <div className="card-body p-1">
-              <h6>{totalClicks}</h6>
+            <div className="card-body p-2">
+              <h5>{totalClicks}</h5>
               <small>Clicks</small>
             </div>
           </div>
@@ -75,8 +115,8 @@ function Sessions() {
 
         <div className="col-md-3">
           <div className="card shadow-sm">
-            <div className="card-body p-1">
-              <h6>{totalPageViews}</h6>
+            <div className="card-body p-2">
+              <h5>{totalPageViews}</h5>
               <small>Views</small>
             </div>
           </div>
@@ -84,8 +124,8 @@ function Sessions() {
 
         <div className="col-md-3">
           <div className="card shadow-sm">
-            <div className="card-body p-1">
-              <h6>{totalEvents}</h6>
+            <div className="card-body p-2">
+              <h5>{totalEvents}</h5>
               <small>Events</small>
             </div>
           </div>
@@ -93,23 +133,22 @@ function Sessions() {
 
       </div>
 
-      {/* ================= MAIN ROW ================= */}
+      {/* ================= MAIN AREA ================= */}
       <div className="row">
 
-        {/* ================= SESSIONS ================= */}
+        {/* SESSIONS */}
         <div className="col-md-4">
+          <div className="card shadow" style={{ height: "300px", overflowY: "auto" }}>
 
-          <div className="card shadow" style={{ height: "520px", overflowY: "auto" }}>
-
-            <div className="card-header bg-dark text-white p-2">
+            <div className="card-header bg-dark text-white">
               📁 Sessions
             </div>
 
-            <div className="card-body p-2">
+            <div className="card-body">
 
               <input
                 className="form-control form-control-sm mb-2"
-                placeholder="Search session..."
+                placeholder="Search..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
@@ -117,22 +156,19 @@ function Sessions() {
               {filteredSessions.map((session) => (
                 <div
                   key={session._id}
-                  className={`card mb-1 ${
+                  className={`card mb-2 ${
                     selectedSession === session._id ? "border-primary" : ""
                   }`}
                   onClick={() => loadSessionEvents(session._id)}
                   style={{ cursor: "pointer" }}
                 >
-                  <div className="card-body p-1 small d-flex justify-content-between">
-
-                    <span className="text-muted">
-                      {session._id.substring(0, 8)}...
-                    </span>
-
+                  <div className="card-body p-2 small">
+                    <div className="text-muted">
+                      {session._id.substring(0, 10)}...
+                    </div>
                     <span className="badge bg-primary">
                       {session.totalEvents}
                     </span>
-
                   </div>
                 </div>
               ))}
@@ -141,81 +177,77 @@ function Sessions() {
           </div>
         </div>
 
-        {/* ================= USER JOURNEY ================= */}
+        {/* USER JOURNEY */}
         <div className="col-md-8">
+          <div className="card shadow" style={{ height: "300px", overflowY: "auto" }}>
 
-          <div className="card shadow" style={{ height: "520px", overflowY: "auto" }}>
-
-            <div className="card-header bg-primary text-white p-2">
+            <div className="card-header bg-primary text-white">
               🛣 User Journey
             </div>
 
-            <div className="card-body p-2">
+            <div className="card-body small">
 
               {events.length === 0 ? (
                 <div className="alert alert-info p-2">
-                  Select a session
+                  Select session
                 </div>
               ) : (
                 events.map((event) => (
-                  <div key={event._id} className="card mb-1 shadow-sm">
+                  <div key={event._id} className="card mb-2 shadow-sm">
+                    <div className="card-body p-2">
 
-                    <div className="card-body p-2 small d-flex justify-content-between">
-
-                      <span>
+                      <b>
                         {event.eventType === "click" ? "🖱 Click" : "👀 View"}
-                      </span>
+                      </b>
 
-                      <span className="text-muted">
-                        {event.pageUrl.substring(0, 25)}...
-                      </span>
+                      <div>{event.pageUrl}</div>
 
-                      <span className="text-muted small">
-                        {new Date(event.timestamp).toLocaleTimeString()}
-                      </span>
+                      <small className="text-muted">
+                        {new Date(event.timestamp).toLocaleString()}
+                      </small>
 
                     </div>
-
                   </div>
                 ))
               )}
 
             </div>
           </div>
+        </div>
+              
+      </div>
+      <br />
+      {/* ================= COMPACT HEATMAP URL BAR ================= */}
+      <div className="d-flex align-items-center justify-content-between p-2 mb-3 border rounded bg-light shadow-sm">
 
-          {/* ================= HEATMAP URL (ABOVE SEARCH BOX AREA) ================= */}
-          <div className="card shadow mt-2 p-2 d-flex flex-row justify-content-between align-items-center">
-
-            <div className="small">
-              🌐 <b>Heatmap:</b> {PORTFOLIO_URL}
-            </div>
-
-            <div className="d-flex gap-2">
-
-              <button
-                className="btn btn-sm btn-outline-primary"
-                onClick={copyUrl}
-              >
-                {copied ? "Copied ✔" : "Copy"}
-              </button>
-
-              <a
-                href={PORTFOLIO_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="btn btn-sm btn-primary"
-              >
-                Open
-              </a>
-
-            </div>
-
-          </div>
-
+        <div className="small">
+          🌐 <b>Heatmap URL:</b>{" "}
+          <span className="text-primary">{PORTFOLIO_URL}</span>
         </div>
 
+        <div className="d-flex align-items-center gap-2">
+
+          <button
+            className="btn btn-sm btn-outline-primary"
+            onClick={handleCopy}
+          >
+            {copied ? "Copied ✔" : "Copy"}
+          </button>
+
+          <a
+            href={PORTFOLIO_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="btn btn-sm btn-primary"
+          >
+            Open
+          </a>
+
+        </div>
       </div>
     </div>
+    
+    
   );
 }
 
