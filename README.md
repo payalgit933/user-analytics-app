@@ -43,14 +43,6 @@ https://user-analytics-app-lhpn.onrender.com/
 
 ---
 
-### Portfolio Tracking
-
-<p align="center">
-<img src="screenshots/portfolio.png" width="900">
-</p>
-
----
-
 ## ✨ Features
 
 - 📄 Automatic Page View Tracking
