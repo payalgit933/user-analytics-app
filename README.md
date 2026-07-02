@@ -217,7 +217,7 @@ npm run dev
 Portfolio URL:
 
 ```
-https://payalgit933.github.io/portfolio/
+https://payalgit933.github.io/portfolio-main/
 ```
 
 ---
